@@ -85,7 +85,7 @@ const setListeners = (socket, game, gameId, username, games, newGameRequests) =>
 		if (gameIndex === -1) return console.log(`Error: Game ${gameId} not found`);
 		games.splice(gameIndex, 1);
 
-		const otherSocket = game[otherPlayer].socket;
+		const otherSocket = game[otherPlayer]?.socket;
 		cleanup(socket);
 		cleanup(otherSocket);
 
