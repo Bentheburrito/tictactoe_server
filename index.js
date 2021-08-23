@@ -12,9 +12,10 @@ let io = new Server(server, {
 
 const games = [];
 const newGameRequests = {}; // { gameId: [usernameX, usernameO] }
+const loadGameRequests = {}; // { gameId: {usernameX: { squares | null }, usernameO: { squares | null } }
 
 io.on("connection", socket => {
-	connectToGame(socket, games, newGameRequests);
+	connectToGame(socket, games, newGameRequests, loadGameRequests);
 });
 
 server.listen(PORT, () => {
