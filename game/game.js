@@ -127,7 +127,10 @@ const setListeners = (socket, game, gameId, username, games, newGameRequests, lo
 		const [player, otherPlayer] = getPlayerTypes(game, username);
 		if (isSameBoard(loadGameRequests[gameId][game[otherPlayer].username], squares)) {
 			socket.in(gameId).emit(ACC_LOAD_SAVED_GAME_EVENT, squares);
-			socket.emit(ACC_LOAD_SAVED_GAME_EVENT, squares);
+      socket.emit(ACC_LOAD_SAVED_GAME_EVENT, squares);
+      game.squares = squares;
+      const numNulls = squares.reduce((acc, square) => square == null ? acc += 1 : acc, 0);
+      game.xIsNext = numNulls % 2 !== 0;
 		} else {
 			console.error(`Error: ${game[otherPlayer].username} accepted a request for a non-existent request game: ${squares}`);
 			socket.emit(LOAD_GAME_EVENT, game.squares);
